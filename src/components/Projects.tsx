@@ -120,7 +120,7 @@ const projects: Project[] = [
     title: "HVAC & VRV",
     description:
       "Air conditioning and VRV system installation — professional HVAC work from planning to maintenance.",
-    tags: ["HVAC", "VRV", "Instalasi"],
+    tags: ["HVAC", "VRV", "Installation"],
     url: "#projects",
     accent: "#8be9fd",
     Icon: WindIcon,
@@ -129,10 +129,10 @@ const projects: Project[] = [
     lightbox: true,
   },
   {
-    title: "Mekanikal Automotif",
+    title: "Automotive Mechanical",
     description:
       "Automotive mechanical service covering repair, maintenance, and restoration with reliable results.",
-    tags: ["Automotif", "Mekanikal", "Servis"],
+    tags: ["Automotive", "Mechanical", "Service"],
     url: "#projects",
     accent: "#ffb86c",
     Icon: WrenchIcon,
@@ -195,7 +195,7 @@ function ProjectCard({
           }}
         />
 
-        {/* Gambar project */}
+        {/* Project image */}
         {project.image && (
           <div className="relative aspect-video mb-5 overflow-hidden rounded-xl border border-white/5">
             <img
@@ -233,7 +233,7 @@ function ProjectCard({
                     <path d="M3 16v3a2 2 0 0 0 2 2h3" />
                     <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
                   </svg>
-                  Lihat Gambar
+View Image
                 </span>
               </div>
             )}
@@ -295,7 +295,7 @@ function ProjectCard({
           className="flex items-center gap-1.5 text-xs font-medium text-[#f8f8f2] w-fit"
           style={{ fontFamily: "'JetBrains Mono', monospace" }}
         >
-          {project.lightbox ? "Lihat Gambar" : "Visit Project"}
+          {project.lightbox ? "View Image" : "Visit Project"}
           {project.lightbox ? (
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14.5 4H21v6.5" />
