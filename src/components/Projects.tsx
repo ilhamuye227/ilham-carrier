@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import ilhamHvacVrv from "@/assets/ilham-hvac-vrv.jpeg";
 import ilhamMekanikalAutomotivv from "@/assets/ilham-mekanikal-automotivv.jpeg";
@@ -16,6 +16,7 @@ interface Project {
   Icon: React.ComponentType;
   image?: string;
   imagePosition?: string;
+  lightbox?: boolean;
 }
 
 function CalendarIcon() {
@@ -125,6 +126,7 @@ const projects: Project[] = [
     Icon: WindIcon,
     image: ilhamHvacVrv,
     imagePosition: "top 15%",
+    lightbox: true,
   },
   {
     title: "Mekanikal Automotif",
@@ -136,10 +138,17 @@ const projects: Project[] = [
     Icon: WrenchIcon,
     image: ilhamMekanikalAutomotivv,
     imagePosition: "top 15%",
+    lightbox: true,
   },
 ];
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({
+  project,
+  onPreview,
+}: {
+  project: Project;
+  onPreview?: (p: Project) => void;
+}) {
   const ref = useRef(null);
   const [hovered, setHovered] = useState(false);
 
@@ -150,19 +159,18 @@ function ProjectCard({ project }: { project: Project }) {
   const y = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const opacity = useTransform(scrollYProgress, [0, 0.55], [0, 1]);
 
-  return (
-    <motion.a
-      ref={ref}
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ y, opacity }}
-      className="group relative rounded-2xl overflow-hidden block h-full"
-      data-cursor-hover
-      aria-label={project.title}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+  const sharedProps = {
+    ref,
+    style: { y, opacity },
+    className: "group relative rounded-2xl overflow-hidden block h-full",
+    "data-cursor-hover": true as const,
+    "aria-label": project.title,
+    onMouseEnter: () => setHovered(true),
+    onMouseLeave: () => setHovered(false),
+  };
+
+  const content = (
+    <>
       <div
         className="absolute inset-0 rounded-2xl transition-opacity duration-300 pointer-events-none z-10"
         style={{
@@ -204,6 +212,31 @@ function ProjectCard({ project }: { project: Project }) {
                   "linear-gradient(to top, rgba(30,32,48,0.6), transparent 55%)",
               }}
             />
+            {project.lightbox && (
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "rgba(40,42,54,0.45)" }}
+              >
+                <span
+                  className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    color: project.accent,
+                    background: "rgba(40,42,54,0.85)",
+                    border: `1px solid ${project.accent}50`,
+                    backdropFilter: "blur(4px)",
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+                    <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+                    <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+                    <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+                  </svg>
+                  Lihat Gambar
+                </span>
+              </div>
+            )}
           </div>
         )}
 
@@ -262,24 +295,62 @@ function ProjectCard({ project }: { project: Project }) {
           className="flex items-center gap-1.5 text-xs font-medium text-[#f8f8f2] w-fit"
           style={{ fontFamily: "'JetBrains Mono', monospace" }}
         >
-          Visit Project
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-          >
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
+          {project.lightbox ? "Lihat Gambar" : "Visit Project"}
+          {project.lightbox ? (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14.5 4H21v6.5" />
+              <path d="m21 4-9.5 9.5" />
+              <path d="M18 13v6a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" />
+            </svg>
+          ) : (
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          )}
         </span>
       </div>
+    </>
+  );
+
+  if (project.lightbox && onPreview) {
+    return (
+      <motion.div
+        {...sharedProps}
+        role="button"
+        tabIndex={0}
+        onClick={() => onPreview(project)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onPreview(project);
+          }
+        }}
+      >
+        {content}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.a
+      {...sharedProps}
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {content}
     </motion.a>
   );
 }
@@ -287,6 +358,20 @@ function ProjectCard({ project }: { project: Project }) {
 export default function Projects() {
   const ref = useRef(null);
   const inView = useInView(ref, { margin: "-80px" });
+  const [selected, setSelected] = useState<Project | null>(null);
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
 
   return (
     <section id="projects" className="py-28 px-6">
@@ -315,10 +400,95 @@ export default function Projects() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+            <ProjectCard
+              key={project.title}
+              project={project}
+              onPreview={setSelected}
+            />
           ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      {selected?.lightbox && selected.image && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+          style={{ background: "rgba(18, 20, 31, 0.8)", backdropFilter: "blur(8px)" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.title}
+          onClick={() => setSelected(null)}
+        >
+          <motion.div
+            initial={{ scale: 0.92, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative max-w-4xl w-full rounded-2xl overflow-hidden"
+            style={{
+              background: "rgba(30, 32, 48, 0.9)",
+              border: `1px solid ${selected.accent}30`,
+              boxShadow: `0 0 80px ${selected.accent}25`,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              aria-label="Close preview"
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white/10"
+              style={{
+                background: "rgba(40, 42, 54, 0.8)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                color: "#f8f8f2",
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <div className="p-5 pt-6 sm:p-8 sm:pt-6 border-b border-white/5">
+              <h3
+                className="text-xl font-semibold text-[#f8f8f2]"
+                style={{ fontFamily: "'Sora', sans-serif" }}
+              >
+                {selected.title}
+              </h3>
+              <p className="text-sm text-[#6272a4] mt-1">{selected.description}</p>
+            </div>
+
+            <div className="flex items-center justify-center p-4 sm:p-6 bg-black/20">
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="max-h-[70vh] w-auto max-w-full rounded-lg object-contain"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2 px-5 pb-5 sm:px-8 sm:pb-8 -mt-1">
+              {selected.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[10px] font-mono px-2 py-1 rounded-full"
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    color: selected.accent,
+                    background: `${selected.accent}10`,
+                    border: `1px solid ${selected.accent}25`,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </section>
   );
 }
