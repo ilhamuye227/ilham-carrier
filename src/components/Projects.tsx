@@ -3,7 +3,6 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import ilhamHvacVrv from "@/assets/ilham-hvac-vrv.jpeg";
 import ilhamMekanikalAutomotivv from "@/assets/ilham-mekanikal-automotivv.jpeg";
 import bookingOnlineService from "@/assets/booking-online-service.png";
-import templateWedding from "@/assets/template-wedding.png";
 import dinginMenggigil from "@/assets/dingin-menggigil.png";
 import posingaing from "@/assets/posingaing.png";
 
@@ -28,12 +27,6 @@ function CalendarIcon() {
       <line x1="3" y1="10" x2="21" y2="10" />
       <path d="M9 16l2 2 4-4" />
     </>
-  );
-}
-
-function HeartIcon() {
-  return (
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
   );
 }
 
@@ -85,16 +78,6 @@ const projects: Project[] = [
     accent: "#8be9fd",
     Icon: CalendarIcon,
     image: bookingOnlineService,
-  },
-  {
-    title: "Template Wedding",
-    description:
-      "Elegant digital wedding invitation template with smooth animations, event details, and RSVP section.",
-    tags: ["React", "Framer Motion", "EdgeOne"],
-    url: "https://template-wedding.edgeone.dev/",
-    accent: "#ff79c6",
-    Icon: HeartIcon,
-    image: templateWedding,
   },
   {
     title: "Dingin Mengigil",
