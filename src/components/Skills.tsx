@@ -16,6 +16,7 @@ const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: "Linux", icon: "🐧", color: "#bd93f9", level: 75 },
       { name: "Web Development", icon: "</>", color: "#50fa7b", level: 78 },
       { name: "Microsoft Office", icon: "📄", color: "#ff79c6", level: 88 },
+      { name: "Google Workspace", icon: "G", color: "#8be9fd", level: 85 },
       { name: "CRM (FFM · Pancake POS)", icon: "▤", color: "#ffb86c", level: 85 },
     ],
   },
