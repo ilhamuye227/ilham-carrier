@@ -183,7 +183,7 @@ export default function About() {
               {[
                 { num: "3+", label: "Years Exp." },
                 { num: "7", label: "Certificates" },
-                { num: "3", label: "Companies" },
+                { num: "4", label: "Companies" },
               ].map((stat) => (
                 <StatCounter key={stat.label} value={stat.num} label={stat.label} />
               ))}
