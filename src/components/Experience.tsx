@@ -26,13 +26,13 @@ const jobs: Job[] = [
   },
   {
     company: "GIP",
-    role: "Telesales Specialist",
+    role: "Spesialis Telesales",
     period: "Oct 2024 — Jan 2026",
-    description: "Telesales specialist handling sales, confirmation, and closing of orders over the phone with a focus on transaction accuracy and customer satisfaction.",
+    description: "Spesialis telesales yang menangani penjualan, konfirmasi, dan penutupan pesanan melalui telepon dengan fokus pada akurasi transaksi dan kepuasan pelanggan.",
     highlights: [
-      "Sales, confirmation, and closing of customer orders via phone",
-      "Verified website order data and managed end-to-end order flow in FFM and Pancake POS systems",
-      "Focused on transaction accuracy and customer satisfaction",
+      "Penjualan, konfirmasi, dan penutupan pesanan pelanggan melalui telepon",
+      "Memverifikasi data pesanan website dan mengelola alur pesanan dari awal hingga akhir di sistem FFM dan Pancake POS",
+      "Mengutamakan akurasi transaksi dan kepuasan pelanggan",
     ],
     accent: "#50fa7b",
   },
