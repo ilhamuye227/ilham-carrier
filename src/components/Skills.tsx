@@ -24,7 +24,7 @@ const skillGroups: { label: string; skills: Skill[] }[] = [
     skills: [
       { name: "HVAC / AC Technician", icon: "❄", color: "#8be9fd", level: 88 },
       { name: "Copper Welding", icon: "🔥", color: "#ff5555", level: 85 },
-      { name: "Network Installation", icon: "⇌", color: "#bd93f9", level: 80 },
+      { name: "Perakitan Komputer", icon: "⇌", color: "#bd93f9", level: 80 },
       { name: "Troubleshooting", icon: "⚡", color: "#50fa7b", level: 85 },
       { name: "Workplace Safety (K3)", icon: "⚠", color: "#f1fa8c", level: 90 },
       { name: "Driving (SIM A & C)", icon: "⛟", color: "#ff79c6", level: 90 },
