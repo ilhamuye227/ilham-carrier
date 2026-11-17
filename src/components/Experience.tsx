@@ -137,6 +137,7 @@ function TimelineItem({ job }: { job: Job }) {
             <p
               className="text-sm font-medium"
               style={{ color: job.accent }}
+              translate="no"
             >
               {job.company}
             </p>
